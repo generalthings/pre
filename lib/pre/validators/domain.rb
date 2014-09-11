@@ -1,4 +1,3 @@
-require 'pry'
 require 'resolv'
 module Pre
   module Validators
