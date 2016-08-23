@@ -19,7 +19,6 @@ module Pre
             cache_write cache_key(domain), value
           rescue
             cache_write cache_key(domain), value, expires_in: expiry
-            Rails.logger.error("Error resolving domain in MX Lookup for: #{domain}")
           end
         end
 
