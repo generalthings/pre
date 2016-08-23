@@ -18,7 +18,7 @@ module Pre
             value = resolution_provider.getresources(domain, Resolv::DNS::Resource::IN::MX).any?
             cache_write cache_key(domain), value
           rescue
-            cache_write cache_key(domain), value, expires_in: expiry
+            cache_write cache_key(domain), value, expires_in: Pre::Validators::Domain.expiry
           end
         end
 
