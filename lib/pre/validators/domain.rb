@@ -1,9 +1,10 @@
 require 'resolv'
+
 module Pre
   module Validators
     module Domain
       def self.expiry
-        3600
+        10080 # 7 days
       end
 
       def cache_key key
@@ -11,9 +12,18 @@ module Pre
       end
 
       def valid_domain?(resolution_provider = Resolv::DNS.new)
-        cache_fetch cache_key(domain) do
-          resolution_provider.getresources(domain, Resolv::DNS::Resource::IN::MX).any?
+        value = cache_read cache_key(domain)
+        if value.nil?
+          begin
+            value = resolution_provider.getresources(domain, Resolv::DNS::Resource::IN::MX).any?
+            cache_write cache_key(domain), value
+          rescue
+            cache_write cache_key(domain), value, expires_in: expiry
+            Rails.logger.error("Error resolving domain in MX Lookup for: #{domain}")
+          end
         end
+
+        value
       end
     end
   end

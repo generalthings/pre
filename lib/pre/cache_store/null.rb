@@ -3,7 +3,7 @@ module Pre
     class Null
       def read key
       end
-      def write key, val
+      def write key, val,options=nil
       end
       def fetch key
         yield

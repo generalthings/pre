@@ -7,7 +7,7 @@ module Pre
       def cache_read key
         cache[key]
       end
-      def cache_write key, value
+      def cache_write key, value, options=nil
         cache[key] = value
       end
       def cache_fetch key, &block

@@ -30,8 +30,8 @@ module Pre
       @options[:cache_store].read key
     end
 
-    def cache_write key, value
-      @options[:cache_store].write key, value
+    def cache_write key, value, options=nil
+      @options[:cache_store].write key, value, expires_in: options[:expires_in]
     end
 
     def cache_fetch key, &block
