@@ -4,7 +4,7 @@ module Pre
   module Validators
     module Domain
       def self.expiry
-        10080 # 7 days
+        86400 # 24 Hours
       end
 
       def cache_key key
